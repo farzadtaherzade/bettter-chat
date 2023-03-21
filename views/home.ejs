@@ -14,7 +14,7 @@
         display: flex;
         align-items: center;
       }
-      div {
+      form {
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -67,28 +67,15 @@
     </style>
   </head>
   <body>
-    <div class="">
+    <form action="/chat" method="get" onsubmit="">
       <h1>Welcome</h1>
-      <input type="text" placeholder="Username" />
+      <input type="text" name="username" placeholder="Username" />
       <button onclick="login()">LOGIN</button>
-    </div>
+    </form>
 
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
       const socket = io("http://localhost:3000");
-
-      socket.on("connection");
-
-      const login = () => {
-        const usernameInput = document.querySelector("input");
-        const username = usernameInput.value;
-        if (username.length >= 1) {
-          socket.emit("new-user", username);
-          window.location.href = "/chat";
-        } else {
-          alert("username is emthy pls enter you name");
-        }
-      };
     </script>
   </body>
 </html>

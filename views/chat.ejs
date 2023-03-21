@@ -91,6 +91,7 @@
   <body>
     <div class="msg-inputs" style="position: relative">
       <input type="text" placeholder="Send Your Message" />
+
       <button onclick="sendMessage()">SEND</button>
     </div>
     <div class="messages"></div>
@@ -104,31 +105,25 @@
 
       const sendMessage = () => {
         const msgInput = document.querySelector("input");
-        const msg = msgInput.value;
+        const message = msgInput.value;
         msgInput.value = "";
-
-        const div = document.createElement("div");
-        div.classList.add("message");
-        div.classList.add("right");
-        const span = document.createElement("span");
-        span.innerText = "You";
-        const p = document.createElement("p");
-        p.innerText = msg;
-
-        div.appendChild(span);
-        div.appendChild(p);
-
-        messagesEl.appendChild(div);
-
-        socket.emit("message", msg);
+        socket.emit("message", {
+          username: "<%= username %>",
+          message: message,
+        });
       };
-      socket.on("message", (data) => {
+      socket.on("message", ({ username, message }) => {
         const div = document.createElement("div");
         div.classList.add("message");
         const span = document.createElement("span");
-        span.innerText = data.username;
+        span.innerText = username;
         const p = document.createElement("p");
-        p.innerText = data.data;
+        p.innerText = message;
+
+        if ("<%= username %>" == username) {
+          div.classList.add("right");
+          span.innerText = "you";
+        }
 
         div.appendChild(span);
         div.appendChild(p);

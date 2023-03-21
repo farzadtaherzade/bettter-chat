@@ -1,2 +1,2 @@
 # bettter-chat
-this chat made by socket.io and express js and later i will add database to project
+this chat made by socket.io and express js and redis for database
